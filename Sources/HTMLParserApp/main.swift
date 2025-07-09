@@ -1,8 +1,14 @@
-import Testing
-@testable import HTMLParser
+//
+//  File.swift
+//  HTMLParser
+//
+//  Created by Chidume Nnamdi on 09/07/2025.
+//
 
-@Test func example() async throws {
-    // Write your test here and use APIs like `#expect(...)` to check expected conditions.
+import Foundation
+import HTMLParser
+
+
     var thisHtml = """
     <!DOCTYPE html>
     <html lang="en">
@@ -33,4 +39,5 @@ import Testing
     """;
 
     HTMLParser().start(html: thisHtml)
-}
+    print("jgvjhgjgh")
+

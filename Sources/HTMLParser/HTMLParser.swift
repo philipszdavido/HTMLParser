@@ -3,15 +3,17 @@
 
 public struct HTMLParser {
     
-    public func start(html: String) {
-        
+    public init() {}
+    
+    public func start(html: String) -> [ElementNode] {
         let tokenizer = Tokenizer(html: html);
 
         let tokens = tokenizer.tokenize()
 
         let parser = Parser();
         let nodes = parser.start(tokens: tokens)
-        print(nodes)
+        
+        return nodes
 
     }
     

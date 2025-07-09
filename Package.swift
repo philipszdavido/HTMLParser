@@ -10,6 +10,7 @@ let package = Package(
         .library(
             name: "HTMLParser",
             targets: ["HTMLParser"]),
+        .executable(name: "HTMLParserApp", targets: ["HTMLParserApp"]),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -20,5 +21,6 @@ let package = Package(
             name: "HTMLParserTests",
             dependencies: ["HTMLParser"]
         ),
+        .executableTarget(name: "HTMLParserApp", dependencies: ["HTMLParser"])
     ]
 )
