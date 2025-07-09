@@ -9,20 +9,20 @@ import Foundation
 
 class Parser {
     
-    func start(tokens: [Token]) -> [ElementNode] {
+    func start(tokens: [Token]) -> [Node] {
         
-        var rootNodes: [ElementNode] = [];
+        var rootNodes: [Node] = [];
         var index = 0;
         
         while index < tokens.count {
             
             let token = tokens[index];
             
-            if (token.self.type == NodeType.Text) {
-                rootNodes += [Text(name: token.self.name)]
+            if (token.self.type == .Text) {
+                rootNodes += [Node(children: [], nodeType: .text(token.name))]
             }
             
-            if (token.self.type == NodeType.Node && !token.self.name.starts(with: "/")) {
+            if (token.self.type == .Node && !token.self.name.starts(with: "/")) {
                 
                 let nextTokens = index + 1 >= tokens.count - 1 ? [] : Array(tokens[index + 1...tokens.count - 1])
                 
@@ -48,7 +48,20 @@ class Parser {
                     tokens: childrenTokens
                 );
                 
-                let element = Element(name: token.self.name, children: children, attributes: token.self.attributes)
+                var attributes: [String : String] = [:]
+                for attribute in token.self.attributes! {
+                    attributes[attribute.name] = attribute.value
+                }
+                
+                let element = Node(
+                    children: children,
+                    nodeType: .element(
+                        ElementData(
+                            tagName: HTMLTagName(rawOrUnknown: token.self.name),
+                            attributes: attributes
+                        )
+                    )
+                )
                 
                 rootNodes += [element];
                                 

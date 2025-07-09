@@ -5,7 +5,7 @@ public struct HTMLParser {
     
     public init() {}
     
-    public func start(html: String) -> [ElementNode] {
+    public func start(html: String) -> [Node] {
         let tokenizer = Tokenizer(html: html);
 
         let tokens = tokenizer.tokenize()

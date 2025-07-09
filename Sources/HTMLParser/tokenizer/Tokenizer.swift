@@ -75,11 +75,11 @@ class Tokenizer {
                     let attributes = self.processAttr(attrs: self.attrs);
 
                     if(self.elementName.starts(with: "/")) {
-                        self.tokens += [Token(index: self.tokens.count, name: self.elementName, startTag: false, endTag: true, attributes: attributes, type: NodeType.Node)];
+                        self.tokens += [Token(index: self.tokens.count, name: self.elementName, startTag: false, endTag: true, attributes: attributes, type: .Node)];
                         self.attrs = "";
                     } else {
                         self.tokens += [
-                            Token(index: self.tokens.count, name: self.elementName, startTag: true, endTag: false, attributes: attributes, type: NodeType.Node)
+                            Token(index: self.tokens.count, name: self.elementName, startTag: true, endTag: false, attributes: attributes, type: .Node)
                         ];
                         self.attrs = "";
                     }
@@ -99,7 +99,7 @@ class Tokenizer {
                 // process text
                 self.text += String(char);
                 if(nextChar == ">" || nextChar == "<") {
-                    self.tokens += [Token(index: self.tokens.count, name: self.text, startTag: false, endTag: false, type: NodeType.Text)]
+                    self.tokens += [Token(index: self.tokens.count, name: self.text, startTag: false, endTag: false, type: .Text)]
                     self.text = ""
                     continue;
                 }

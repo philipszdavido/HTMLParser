@@ -16,11 +16,11 @@ class TokenToHTML {
         
         for token in tokens.enumerated() {
             
-            if(token.element.type == NodeType.Text) {
+            if(token.element.type == .Text) {
                 html += token.element.name
             }
             
-            if (token.element.type == NodeType.Node) {
+            if (token.element.type == .Node) {
                 
                 html += "<" + token.element.name + ">"
             }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum NodeType {
+public enum TokenNodeType {
  case Node
  case Text
 }
@@ -24,24 +24,7 @@ public struct Token {
     var startTag: Bool?;
     var endTag: Bool?;
     var attributes: [Attributes]?;
-    var type: NodeType;
-}
-
-public protocol ElementNode {
-    var name: String { get set };
-    var id: UUID { get set }
-}
-
-public struct Element: ElementNode {
-    public var name: String;
-    public var children: [ElementNode];
-    public var attributes: [Attributes]?;
-    public var id = UUID()
-}
-
-public struct Text: ElementNode {
-    public var name: String;
-    public var id = UUID()
+    var type: TokenNodeType;
 }
 
 public enum DOMNodeType: String, CaseIterable {
