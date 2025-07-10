@@ -12,6 +12,7 @@ class Tokenizer {
     var openTag = false;
     var DOCTYPE = false;
     var collectAttrs = false;
+    var comment = false;
     var attrs = "";
     var elementName: String = "";
     var text: String = "";
@@ -28,22 +29,35 @@ class Tokenizer {
             
             let nextChar = self.nextChar(index: index)
             
-            if (char == "<") {
-                
+            if(char == "<" && openTag == false) {
+
+                // check for comment
                 if(nextChar == "!") {
-                    
-                    // check for doctype
-                    if(self.nextChar(index: index + 2)! == "D") {
-                        self.DOCTYPE = true;
+                    if(self.nextChar(index: index + 2)! == "-") {
+
+                        comment = true;
+                        continue;
+
+                    } else if(self.nextChar(index: index + 2)! == "D") {
+                        // we have "DOCTYPE"
+                        DOCTYPE = true;
                         continue;
                     }
-                    
+
                 }
-                
-                self.openTag = true;
+
+                openTag = true;
                 continue;
             }
-            
+
+            if(comment) {
+                if(char == "-" && nextChar == ">") {
+                    comment = false;
+                    continue;
+                }
+                continue
+            }
+                        
             if(self.DOCTYPE) {
                 if(char == ">") {
                     self.DOCTYPE = false;
